@@ -15,7 +15,7 @@ export default async function MyProjectsPage() {
   if (session.user?.role !== 'client') redirect('/dashboard')
 
   let clientProjects: Array<{ id: string; name: string; description: string | null }> = []
-  let tasksByProject: Record<string, typeof tasks.$inferSelect[]> = {}
+  const tasksByProject: Record<string, typeof tasks.$inferSelect[]> = {}
 
   try {
     // 透過 session email 找到對應 user 記錄，再查詢其名下的專案

@@ -47,4 +47,7 @@ next-env.d.ts
 # Git Bash 偶發 crash 留下的垃圾檔
 *.stackdump
 
+# Office 開啟檔案時的暫存鎖檔
+~$*
+
 CLAUDE.local.md

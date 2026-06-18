@@ -1,0 +1,7 @@
+graph TD;
+    A["Home Component"] -->|calls| B["auth()"]
+    B -->|returns| C{"Session Exists?"}
+    C -->|Yes| D["/dashboard"]
+    C -->|No| E["/login"]
+    D -->|redirect| F["User navigated to Dashboard"]
+    E -->|redirect| G["User navigated to Login"]

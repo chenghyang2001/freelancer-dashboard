@@ -1,0 +1,6 @@
+graph TD;
+    A[Login Page] -->|submits credentials| B[NextAuth API Route]
+    B -->|validates credentials| C[Database]
+    C -->|returns user data| B
+    B -->|generates JWT| D[Session]
+    D -->|stores user role| E[Frontend]

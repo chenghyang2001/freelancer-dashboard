@@ -1,0 +1,7 @@
+graph TD;
+    A[Dashboard Layout] -->|auth| B[Dashboard Home Page]
+    A -->|auth| C[My Projects Page]
+    A -->|auth| D[Project Page]
+    B -->|fetch projects| E[Database]
+    C -->|fetch client projects| E
+    D -->|fetch project tasks| E

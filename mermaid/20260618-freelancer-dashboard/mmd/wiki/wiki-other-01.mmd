@@ -1,0 +1,14 @@
+flowchart TD
+    A[Client Component] -->|Drag & Drop| B[Kanban Board]
+    B -->|Optimistic Update| C[updateTaskStatus]
+    C --> D{Authorization Checks}
+    D -->|Authenticated| E[Check User Role]
+    D -->|Not Authenticated| F[Throw Error]
+    E -->|Client| G[Throw Error]
+    E -->|Team/ Admin| H[Check Task Existence]
+    H -->|Exists| I[Check Project Association]
+    I -->|Valid| J[Update Task Status]
+    J --> K[Revalidate Cache]
+    K --> L[Success Response]
+    I -->|Invalid| M[Throw Error]
+    H -->|Not Found| N[Throw Error]

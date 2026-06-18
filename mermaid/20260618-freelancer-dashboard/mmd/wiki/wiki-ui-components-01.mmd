@@ -1,0 +1,8 @@
+graph TD;
+    A[KanbanBoard] -->|renders| B[KanbanColumn]
+    B -->|contains| C[TaskCard]
+    A -->|handles| D[LoginForm]
+    A -->|displays| E[ProjectCard]
+    A -->|navigates| F[Sidebar]
+    F -->|contains| G[SignOutButton]
+    F -->|displays| H[RoleBadge]

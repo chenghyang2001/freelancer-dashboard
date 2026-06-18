@@ -1,0 +1,9 @@
+graph TD;
+    A["Access Property on db"] --> B["Proxy get Handler"];
+    B --> C["getDb()"];
+    C --> D["Check if _db is null"];
+    D -->|Yes| E["Retrieve DATABASE_URL"];
+    E --> F["Initialize _db with drizzle"];
+    D -->|No| G["Return _db"];
+    F --> G;
+    G --> H["Return Property"];

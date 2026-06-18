@@ -1,0 +1,19 @@
+block-beta
+  columns 3
+  browser["瀏覽器<br/>Client Components<br/>dnd-kit"]:3
+  space:3
+  mw["middleware.ts<br/>Edge 守衛"]:3
+  space:3
+  rsc["Server Components<br/>dashboard pages"] action["Server Actions<br/>actions/tasks.ts"] api["API Route<br/>NextAuth handler"]
+  space:3
+  auth["lib/auth.ts<br/>NextAuth v5"] dbproxy["lib/db<br/>Drizzle Proxy"] schema["schema.ts<br/>4 表 + 3 enum"]
+  space:3
+  neon[("Neon Serverless<br/>PostgreSQL")]:3
+
+  browser --> mw
+  mw --> rsc
+  rsc --> action
+  action --> auth
+  action --> dbproxy
+  api --> auth
+  dbproxy --> neon

@@ -1,0 +1,31 @@
+flowchart TD
+    U([使用者瀏覽器]) --> MW{middleware<br/>已登入?}
+    MW -->|否, 進 dashboard| LOGIN[導向 /login]
+    MW -->|是| LAYOUT{dashboard layout<br/>session 存在?}
+    LAYOUT -->|否| LOGIN
+    LAYOUT -->|是| ROLE{角色判斷}
+
+    subgraph 認證流程
+        LOGIN --> FORM[login-form 提交]
+        FORM --> AUTH[lib/auth authorize]
+        AUTH --> ZOD[Zod 驗證格式]
+        ZOD --> BCRYPT[bcrypt 比對密碼]
+        BCRYPT --> JWT[寫入 role 到 JWT]
+    end
+
+    subgraph 資料讀取
+        ROLE -->|client| OWN[只查自己的專案]
+        ROLE -->|admin/team| ALL[查全部專案]
+        OWN --> CARD[ProjectCard 渲染]
+        ALL --> CARD
+    end
+
+    subgraph 任務寫入
+        CARD --> BOARD[KanbanBoard 拖曳]
+        BOARD --> OPT[樂觀更新 UI]
+        OPT --> ACT[updateTaskStatus<br/>Server Action]
+        ACT --> GUARD{五段越權防禦}
+        GUARD -->|通過| DB[(更新 Neon DB)]
+        GUARD -->|失敗| RELOAD[整頁 reload 回滾]
+        DB --> REVAL[revalidatePath]
+    end

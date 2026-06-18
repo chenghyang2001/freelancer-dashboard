@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor U as 團隊成員
+    participant B as KanbanBoard<br/>Client
+    participant A as updateTaskStatus<br/>Server Action
+    participant S as auth session
+    participant DB as Neon DB
+
+    U->>B: 拖曳任務卡片
+    B->>B: 樂觀更新 setColumns
+    B->>A: updateTaskStatus(taskId, status, projectId)
+    A->>S: auth() 取得 session
+    alt 未登入
+        S-->>A: null
+        A-->>B: throw 未授權
+    else client 角色
+        A-->>B: throw 客戶不可改
+    else 通過角色檢查
+        A->>DB: 查 task 是否存在
+        A->>A: 驗 task.project_id === projectId
+        A->>DB: email 反查 currentUser.id
+        A->>DB: 查 project_members 成員資格
+        alt 非專案成員
+            A-->>B: throw 無存取權限
+        else 五段全通過
+            A->>DB: UPDATE tasks SET status
+            A->>A: revalidatePath
+            A-->>B: 成功
+        end
+    end
+    Note over B: 失敗則 window.location.reload 回滾

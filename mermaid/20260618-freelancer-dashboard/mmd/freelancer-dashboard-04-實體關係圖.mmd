@@ -1,0 +1,40 @@
+erDiagram
+    users ||--o{ projects : "client_id 委託"
+    users ||--o{ tasks : "assignee_id 指派"
+    users ||--o{ project_members : "user_id 參與"
+    projects ||--o{ tasks : "project_id 包含"
+    projects ||--o{ project_members : "project_id 成員"
+
+    users {
+        uuid id PK
+        text name
+        text email UK
+        text password_hash
+        enum role "admin/team_member/client"
+        timestamp created_at
+    }
+    projects {
+        uuid id PK
+        text name
+        text description
+        uuid client_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+    tasks {
+        uuid id PK
+        uuid project_id FK
+        text title
+        text description
+        enum status "todo/in_progress/review/done"
+        uuid assignee_id FK "可為 null"
+        integer order
+        timestamp updated_at
+    }
+    project_members {
+        uuid id PK
+        uuid project_id FK
+        uuid user_id FK
+        enum role "owner/member/viewer"
+        timestamp created_at
+    }

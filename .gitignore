@@ -46,3 +46,5 @@ next-env.d.ts
 
 # Git Bash 偶發 crash 留下的垃圾檔
 *.stackdump
+
+CLAUDE.local.md

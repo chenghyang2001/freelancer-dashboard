@@ -1,0 +1,19 @@
+gantt
+    title Claude Code 專案配置導入時程
+    dateFormat YYYY-MM-DD
+    section 記憶檔
+        建 User CLAUDE.md       : a1, 2026-06-10, 1d
+        建 Project CLAUDE.md    : a2, after a1, 1d
+        設 @import 遞迴四層      : a3, after a2, 1d
+    section 設定層
+        設 settings.json 三層   : b1, after a3, 2d
+        套 CLI flags 驗證       : b2, after b1, 1d
+    section 擴充元件
+        加 agents / skills      : c1, after b2, 2d
+        設 output-styles/workflows : c2, after c1, 1d
+    section MCP 與其他
+        設 .mcp.json            : d1, after c2, 1d
+        設 .worktreeinclude     : d2, after d1, 1d
+    section 官方核對
+        比對官方文件            : e1, after d2, 1d
+        修正 6 點達 88 分       : e2, after e1, 1d

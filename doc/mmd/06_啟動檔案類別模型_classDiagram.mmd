@@ -1,0 +1,83 @@
+classDiagram
+    class 啟動載入器 {
+        +載入記憶檔()
+        +合併設定檔()
+        +掃描元件資料夾()
+    }
+    class 記憶檔 {
+        <<abstract>>
+        +路徑: string
+        +優先序: int
+        +遞迴import最多4層()
+    }
+    class ManagedPolicyMd {
+        +範圍: 企業強制
+        +優先序: 最高
+    }
+    class UserClaudeMd {
+        +路徑: ~/.claude/CLAUDE.md
+        +範圍: 使用者全域
+    }
+    class ProjectClaudeMd {
+        +路徑: ./CLAUDE.md
+        +範圍: 專案
+    }
+    class LocalClaudeMd {
+        +路徑: CLAUDE.local.md
+        +範圍: 本機未進版控
+    }
+    class 設定檔 {
+        <<abstract>>
+        +permissions
+        +hooks
+        +env
+        +model
+        +outputStyle
+        +alwaysThinkingEnabled
+        +autoMemory
+    }
+    class ManagedSettings {
+        +優先序: 最高
+    }
+    class ProjectSettingsJson {
+        +路徑: .claude/settings.json
+    }
+    class UserSettingsJson {
+        +路徑: ~/.claude/settings.json
+        +優先序: 最低
+    }
+    class 擴充元件 {
+        <<abstract>>
+        +雙層: 專案+全域
+    }
+    class Agent {
+        +資料夾: agents/
+        +角色: subagent
+    }
+    class Skill {
+        +資料夾: skills/
+        +備註: commands已整併
+    }
+    class MCPServer {
+        +來源: .mcp.json
+        +scope: Local/Project/User
+    }
+
+    記憶檔 <|-- ManagedPolicyMd
+    記憶檔 <|-- UserClaudeMd
+    記憶檔 <|-- ProjectClaudeMd
+    記憶檔 <|-- LocalClaudeMd
+    設定檔 <|-- ManagedSettings
+    設定檔 <|-- ProjectSettingsJson
+    設定檔 <|-- UserSettingsJson
+    擴充元件 <|-- Agent
+    擴充元件 <|-- Skill
+    啟動載入器 *-- 記憶檔: 載入
+    啟動載入器 *-- 設定檔: 合併
+    啟動載入器 *-- 擴充元件: 掃描
+    設定檔 --> MCPServer: 啟動
+    設定檔 *-- Hooks: hooks鍵內聯
+    class Hooks {
+        +定義位置: settings.json
+        +非資料夾
+    }

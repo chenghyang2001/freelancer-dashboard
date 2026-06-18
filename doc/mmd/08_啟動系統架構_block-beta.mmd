@@ -1,0 +1,19 @@
+block-beta
+  columns 4
+  Title["Claude Code CLI 啟動時的分層架構"]:4
+  space:4
+  Managed["Managed 層<br/>企業強制政策<br/>policy CLAUDE.md + settings<br/>優先序最高"]:4
+  space:4
+  U1["User 層 ~/.claude/<br/>CLAUDE.md 全域記憶"]:2 U2["User 層<br/>settings.json 全域設定"]:2
+  space:4
+  P1["Project 層 ./<br/>CLAUDE.md + CLAUDE.local.md"]:2 P2["Project 層 .claude/<br/>settings.json + settings.local.json"]:2
+  space:4
+  R1["Runtime 載入<br/>記憶七層合併"] R2["Runtime 載入<br/>設定五層合併"] R3["Runtime 載入<br/>元件資料夾掃描"] R4["Runtime 啟動<br/>MCP + Hooks"]
+  Managed --> U1
+  Managed --> U2
+  U1 --> P1
+  U2 --> P2
+  P1 --> R1
+  P2 --> R2
+  P2 --> R3
+  P2 --> R4

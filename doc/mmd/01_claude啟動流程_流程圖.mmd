@@ -1,0 +1,13 @@
+flowchart TD
+    A["claude 啟動<br/>從當前目錄往上爬目錄樹"] --> B["讀 Managed settings<br/>企業強制層"]
+    B --> C["套用 CLI flags<br/>命令列旗標覆蓋"]
+    C --> D["讀三層 settings.json<br/>local → project → user"]
+    D --> E["載入 CLAUDE.md 鏈<br/>七層由高至低"]
+    E --> F{"含 @import？"}
+    F -->|是| G["遞迴展開<br/>最深 4 層"]
+    F -->|否| H["合併記憶內容"]
+    G --> H
+    H --> I["載入擴充元件<br/>agents / skills<br/>output-styles / workflows"]
+    I --> J["啟動 MCP servers<br/>.mcp.json + ~/.claude.json"]
+    J --> K["執行 SessionStart hooks"]
+    K --> L["進入互動模式"]

@@ -1,0 +1,52 @@
+requirementDiagram
+    requirement R1 {
+        id: 1
+        text: "記憶檔需依七層優先序正確載入"
+        risk: high
+        verifymethod: test
+    }
+    requirement R2 {
+        id: 2
+        text: "設定檔需依五層優先序正確套用"
+        risk: high
+        verifymethod: test
+    }
+    requirement R3 {
+        id: 3
+        text: "擴充元件需雙層載入且不衝突"
+        risk: medium
+        verifymethod: inspection
+    }
+    requirement R4 {
+        id: 4
+        text: "啟動流程需依官方核對版執行"
+        risk: medium
+        verifymethod: analysis
+    }
+
+    element ManagedPolicy {
+        type: "Managed policy 最高層"
+    }
+    element UserLayer {
+        type: "User ~/.claude 層"
+    }
+    element ProjectLayer {
+        type: "Project ./ 專案層"
+    }
+    element ExtComponents {
+        type: "agents/skills/workflows"
+    }
+    element StartupFlow {
+        type: "SessionStart 啟動鏈"
+    }
+
+    ManagedPolicy - satisfies -> R1
+    UserLayer - satisfies -> R1
+    ProjectLayer - satisfies -> R1
+    ManagedPolicy - satisfies -> R2
+    UserLayer - satisfies -> R2
+    ProjectLayer - satisfies -> R2
+    ExtComponents - satisfies -> R3
+    StartupFlow - satisfies -> R4
+    R4 - traces -> R1
+    R4 - traces -> R2

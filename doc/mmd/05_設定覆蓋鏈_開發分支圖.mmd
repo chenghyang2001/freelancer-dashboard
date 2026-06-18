@@ -1,0 +1,23 @@
+gitGraph
+    commit id: "預設值"
+    branch managed
+    checkout managed
+    commit id: "Managed 政策（最高）"
+    checkout main
+    merge managed
+    branch user
+    checkout user
+    commit id: "User ~/.claude"
+    checkout main
+    merge user
+    branch project
+    checkout project
+    commit id: "Project ./settings"
+    checkout main
+    merge project
+    branch local
+    checkout local
+    commit id: "Local settings.local"
+    checkout main
+    merge local
+    commit id: "最終生效設定"

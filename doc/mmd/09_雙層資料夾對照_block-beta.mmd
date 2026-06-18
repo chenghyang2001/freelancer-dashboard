@@ -1,0 +1,24 @@
+block-beta
+  columns 2
+  L["專案 .claude/<br/>專案層元件"] G["全域 ~/.claude/<br/>使用者層元件"]
+  PA["agents/<br/>專案 subagents"] GA["agents/<br/>全域 subagents"]
+  PS["skills/<br/>專案技能 含commands"] GS["skills/<br/>全域技能 含commands"]
+  PR["rules/<br/>專案規則"] GR["rules/<br/>全域規則"]
+  PO["output-styles/<br/>專案輸出風格"] GO["output-styles/<br/>全域輸出風格"]
+  PW["workflows/<br/>專案工作流"] GW["workflows/<br/>全域工作流"]
+  PM["agent-memory/<br/>專案代理記憶"] GM["agent-memory/<br/>全域代理記憶"]
+  PJ["settings.json<br/>專案設定"] GP["plugins/<br/>plugin 快取"]
+  L --> PA
+  G --> GA
+  PA --> PS
+  GA --> GS
+  PS --> PR
+  GS --> GR
+  PR --> PO
+  GR --> GO
+  PO --> PW
+  GO --> GW
+  PW --> PM
+  GW --> GM
+  PM --> PJ
+  GM --> GP

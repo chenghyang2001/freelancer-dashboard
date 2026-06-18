@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> 初始化
+    初始化 --> 載入設定: 讀 Managed settings<br/>套 CLI flags
+    載入設定 --> 載入記憶: 三層 settings.json 就緒
+    載入記憶 --> 載入記憶: 展開 @import<br/>遞迴最深 4 層
+    載入記憶 --> 載入元件: CLAUDE.md 七層合併完成
+    載入元件 --> 啟動MCP: agents/skills/<br/>output-styles 就緒
+    啟動MCP --> 執行Hooks: MCP servers 連線
+    執行Hooks --> 互動: SessionStart hooks 完成
+    互動 --> 互動: 對話往返
+    互動 --> [*]: 結束 session

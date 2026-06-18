@@ -1,0 +1,32 @@
+flowchart LR
+    Core["Claude Code CLI<br/>啟動核心"]
+    subgraph 記憶與設定
+        M["CLAUDE.md 鏈<br/>七層優先序"]
+        S["settings.json<br/>五層覆蓋"]
+    end
+    subgraph 擴充元件
+        A["agents/"]
+        SK["skills/<br/>整併 commands"]
+        R["rules/"]
+        OS["output-styles/"]
+        WF["workflows/"]
+        AM["agent-memory/"]
+    end
+    subgraph 外部服務
+        MCP[".mcp.json<br/>MCP servers"]
+        GJ["~/.claude.json<br/>全域+MCP"]
+        HK["hooks 鍵<br/>SessionStart 腳本"]
+    end
+    Core --> M
+    Core --> S
+    Core --> A
+    Core --> SK
+    Core --> R
+    Core --> OS
+    Core --> WF
+    Core --> AM
+    Core --> MCP
+    Core --> GJ
+    S --> HK
+    MCP --> EXT["外部工具<br/>Gmail / Drive / NotebookLM"]
+    GJ --> EXT

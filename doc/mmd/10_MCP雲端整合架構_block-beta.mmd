@@ -1,0 +1,29 @@
+block-beta
+  columns 3
+  Title["本機 CLI 透過 MCP 設定整合外部服務"]:3
+  space:3
+  block:local:3
+    CLI["Claude Code CLI<br/>本機啟動"]
+    Conf1[".mcp.json<br/>專案根 進版控"]
+    Conf2["~/.claude.json<br/>主目錄 Local與User範圍"]
+  end
+  space:3
+  block:servers:3
+    M1["MCP Server<br/>stdio 子程序"]
+    M2["MCP Server<br/>http 遠端"]
+    M3["MCP Server<br/>SSE 串流"]
+  end
+  space:3
+  block:external:3
+    E1["外部服務<br/>Gmail / Drive"]
+    E2["外部服務<br/>GitHub / API"]
+    E3["外部服務<br/>NotebookLM / DB"]
+  end
+  Conf1 --> M1
+  Conf2 --> M2
+  Conf2 --> M3
+  CLI --> Conf1
+  CLI --> Conf2
+  M1 --> E1
+  M2 --> E2
+  M3 --> E3

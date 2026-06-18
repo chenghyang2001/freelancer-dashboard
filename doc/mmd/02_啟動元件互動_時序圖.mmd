@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant U as 開發者
+    participant CLI as Claude CLI
+    participant MP as Managed Policy
+    participant CFG as User/Project 設定
+    participant MEM as CLAUDE.md 鏈
+    participant MCP as MCP servers
+    participant HK as SessionStart Hooks
+    U->>CLI: 執行 claude
+    CLI->>MP: 讀 Managed settings（強制層）
+    MP-->>CLI: 回傳企業政策
+    CLI->>CFG: 讀三層 settings.json
+    CFG-->>CLI: 合併設定（含 CLI flags 覆蓋）
+    CLI->>MEM: 載入七層記憶檔
+    MEM->>MEM: 展開 @import（最深 4 層）
+    MEM-->>CLI: 回傳合併記憶
+    CLI->>MCP: 啟動 MCP servers
+    MCP-->>CLI: 連線就緒
+    CLI->>HK: 執行 SessionStart hooks
+    HK-->>CLI: hooks 完成
+    CLI-->>U: 進入互動模式
+    loop 對話迴圈
+        U->>CLI: 後續輸入
+        CLI-->>U: 回應
+    end
